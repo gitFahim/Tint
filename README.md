@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🛒 MERN E-Commerce Website
 
 Welcome to the **MERN E-Commerce Website**! This project is a feature-rich e-commerce application built using the powerful MERN stack, complete with an intuitive user-facing store and an all-encompassing admin dashboard.
@@ -146,3 +147,7 @@ Open [http://localhost:5174](http://localhost:5174) in your browser to view the 
 Open [http://localhost:400](http://localhost:400) in your browser to run the backend.
 
 Open [http://localhost:5173](http://localhost:5173) in your browser to view the frontend project.
+=======
+# Tint
+Tint site
+>>>>>>> e7dd7e9000011faf82a5620f102bf58f1dfa35a5
