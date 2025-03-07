@@ -13,7 +13,7 @@ const About = () => {
         <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="About Photo" />
         <div className='flex flex-col justify-center gap-6 text-gray-600 md:w-2/4'>
           <p>Welcome to Tint, where style meets quality. Our mission is to bring you the latest fashion trends and must-have items, all curated with an eye for quality and design. We believe that everyone deserves to express themselves through fashion, and we're here to make that easier and more enjoyable. Our collections are carefully selected to offer you a range of options that cater to every taste and occasion.</p>
-          <p>At tint, we prioritize your satisfaction. From the moment you browse our site to the day your order arrives, we are dedicated to providing a seamless shopping experience. Our team is always on the lookout for the latest trends, ensuring that you have access to the freshest styles as soon as they hit the runway. Thank you for choosing tint. We’re excited to be a part of your style journey.</p>
+          <p>At Tint, we prioritize your satisfaction. From the moment you browse our site to the day your order arrives, we are dedicated to providing a seamless shopping experience. Our team is always on the lookout for the latest trends, ensuring that you have access to the freshest styles as soon as they hit the runway. Thank you for choosing tint. We’re excited to be a part of your style journey.</p>
           <b className='text-gray-800'>Our Mission</b>
           <p>At tint, our mission is to empower you to express your unique style with high-quality, on-trend fashion. We strive to make fashion accessible to all, offering diverse products that inspire confidence.</p>
           <b className='text-gray-800'>Our Vision</b>
