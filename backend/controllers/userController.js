@@ -18,7 +18,7 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, message: "Invalid email or password" });
+        .json({ success: false, message: "User don't exist" });
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
@@ -27,9 +27,7 @@ const loginUser = async (req, res) => {
       const token = createToken(user._id);
       res.status(200).json({ success: true, token });
     } else {
-      res
-        .status(400)
-        .json({ success: false, message: "Invalid email or password" });
+      res.json({ success: false, message: "Invalid email or password" });
     }
   } catch (error) {
     console.log("Error while logging in user: ", error);
@@ -45,17 +43,15 @@ const registerUser = async (req, res) => {
     // INFO: Check if user already exists
     const userExists = await userModel.findOne({ email });
     if (userExists) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User already exists" });
+      return res.json({ success: false, message: "User already exists" });
     }
 
     // INFO: Validating email and password
     if (!validator.isEmail(email)) {
-      return res.status(400).json({ success: false, message: "Invalid email" });
+      return res.json({ success: false, message: "Invalid email" });
     }
     if (password.length < 8) {
-      return res.status(400).json({
+      return res.status.json({
         success: false,
         message: "Password must be at least 8 characters",
       });
@@ -99,9 +95,7 @@ const loginAdmin = async (req, res) => {
 
       res.status(200).json({ success: true, token });
     } else {
-      res
-        .status(400)
-        .json({ success: false, message: "Invalid email or password" });
+      res.json({ success: false, message: "Invalid email or password" });
     }
   } catch (error) {
     console.log("Error while logging in admin: ", error);
