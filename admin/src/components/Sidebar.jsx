@@ -31,7 +31,7 @@ const Sidebar = () => {
           to={"/orders"}
         >
           <img className="w-6 h-6" src={assets.order_icon} alt="Add Products" />
-          <p className="hidden text-lg font-semibold md:block">View Orders</p>
+          <p className="hidden text-lg font-semibold md:block">Orders</p>
         </NavLink>
       </div>
     </div>
