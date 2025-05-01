@@ -4,11 +4,19 @@ import Title from "./Title";
 import ProductItem from "./ProductItem";
 
 const BestSeller = () => {
-  const { products } = useContext(ShopContext);
+  const { products, getProductsData } = useContext(ShopContext);
   const [bestSeller, setBestSeller] = useState([]);
 
   useEffect(() => {
-    const bestProduct = products.filter((item) => item.bestseller);
+    // Fetch products if not already loaded
+    if (!products || products.length === 0) {
+      getProductsData();
+    }
+  }, [products, getProductsData]);
+
+  useEffect(() => {
+    // Filter and set best sellers
+    const bestProduct = products.filter((item) => item.bestSeller);
     setBestSeller(bestProduct.slice(0, 5));
   }, [products]);
 
