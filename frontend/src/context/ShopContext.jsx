@@ -15,7 +15,7 @@ const ShopContextProvider = (props) => {
   const [token, setToken] = useState('');
 
   const currency = "৳";
-  const delivery_fee = 60;
+  const delivery_fee = 100;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 /*
   useEffect(() => {

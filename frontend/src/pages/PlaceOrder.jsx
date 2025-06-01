@@ -18,7 +18,6 @@ const PlaceOrder = () => {
     email:'',
     street:'',
     city:'',
-    state:'',
     zipcode:'',
     country:'',
     phone:''
@@ -68,6 +67,26 @@ const PlaceOrder = () => {
             toast.error(response.data.message)
           }
           break;
+        
+          case 'bkash':
+            const bkashResponse = await axios.post(backendUrl + '/api/order/place-bkash', orderData, { headers: { token } });
+            if (bkashResponse.data.success) {
+              setCartItems({});
+              navigate('/orders');
+            } else {
+              toast.error(bkashResponse.data.message);
+            }
+            break;
+        
+          case 'steadfast':
+            const steadfastResponse = await axios.post(backendUrl + '/api/order/place-steadfast', orderData, { headers: { token } });
+            if (steadfastResponse.data.success) {
+              setCartItems({});
+              navigate('/orders');
+            } else {
+              toast.error(steadfastResponse.data.message);
+            }
+            break;
 
         default:
           break
@@ -115,11 +134,6 @@ const PlaceOrder = () => {
             type="text" 
             placeholder='City' 
           />
-          <input required onChange={onChangeHandler} name='state' value={formData.state}
-            className='w-full px-4 py-2 border border-gray-300 rounded' 
-            type="text" 
-            placeholder='State' 
-          />
         </div>
         <div className='flex gap-3'>
           <input required  onChange={onChangeHandler} name='zipcode' value={formData.zipcode}
@@ -141,28 +155,31 @@ const PlaceOrder = () => {
       </div>
       {/* Right Side Content */}
       <div className='mt-8'>
-        <div className='mt-8 min-w-80'>
-          <CartTotal />
+        <div className="mt-8 min-w-80">
+          <CartTotal city={formData.city || ""} /> {/* Pass a default value if city is undefined */}
         </div>
         {/* Payment Methods Selection */}
         <div className='mt-12'>
           <Title text1={'PAYMENT'} text2={'METHODS'} />
           <div className='flex flex-col gap-3 lg:flex-row'>
-            {/*
-            <div onClick={() => setMethod('stripe')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-600' : ''}`}></p>
-              <img className='h-5 mx-4' src={assets.stripe_logo} alt="Stripe" />
-            </div>
+              {/* Bkash Payment Option */}
+              <div onClick={() => setMethod('bkash')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
+                <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'bkash' ? 'bg-green-600' : ''}`}></p>
+                <img className='h-5 mx-4' src={assets.BkashLogo} alt="Bkash" />
+                <p className='text-sm font-medium text-gray-500'>Bkash</p>
+              </div>
 
-            <div onClick={() => setMethod('razorpay')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'razorpay' ? 'bg-green-600' : ''}`}></p>
-              <img className='h-5 mx-4' src={assets.razorpay_logo} alt="RazorPay" />
+              {/* Steadfast Payment Option */}
+              <div onClick={() => setMethod('steadfast')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
+                <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'steadfast' ? 'bg-green-600' : ''}`}></p>
+                <img className='h-5 mx-4' src={assets.steadfast_logo} alt="Steadfast" />
+                <p className='text-sm font-medium text-gray-500'>Steadfast</p>
+              </div>
             </div>
-            */}
             <div onClick={() => setMethod('cod')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
               <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'cod' ? 'bg-green-600' : ''}`}></p>
               <p className='mx-4 text-sm font-medium text-gray-500'>CASH ON DELIVERY</p>
-            </div>
+
           </div>
           <div className='w-full mt-8 text-end'>
             <button type='submit' className='px-16 py-3 text-sm text-white bg-black active:bg-gray-800'>PLACE ORDER</button>

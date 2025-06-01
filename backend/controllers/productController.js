@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import axios from "axios";
 import productModel from "../models/productModel.js";
 
 // INFO: Route for adding a product
@@ -89,4 +90,55 @@ const getSingleProduct = async (req, res) => {
   }
 };
 
-export { addProduct, listProducts, removeProduct, getSingleProduct };
+// INFO: Route for updating a product
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract product ID from URL
+
+    console.log("Product ID:", id); // Debugging
+    console.log("Request Body:", req.body); // Debugging
+
+    // Validate the product ID
+    if (!id) {
+      return res.status(400).json({ success: false, message: "Product ID is required" });
+    }
+
+    // Prepare the updated data
+    const updatedData = {
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      subCategory: req.body.subCategory,
+      price: Number(req.body.price),
+      sizes: req.body.sizes && typeof req.body.sizes === "string"
+        ? JSON.parse(req.body.sizes)
+        : req.body.sizes, // Parse only if it's a string
+      bestSeller: req.body.bestSeller === "true" || req.body.bestSeller === true,
+    };
+
+    console.log("Updated Data:", updatedData); // Debugging
+    // Update the product in the database
+    const product = await productModel.findByIdAndUpdate(id, updatedData, {
+      new: true, // Return the updated document
+    });
+
+    // Check if the product exists
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    // Send success response
+    res.status(200).json({ success: true, product });
+  } catch (error) {
+    console.error("Error while updating product:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export {
+  addProduct,
+  listProducts,
+  removeProduct,
+  getSingleProduct,
+  updateProduct,
+};
